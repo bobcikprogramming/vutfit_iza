@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="18154" systemVersion="20D91" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="YES" userDefinedModelVersionIdentifier="">
+    <entity name="BudgetItem" representedClassName="BudgetItem" syncable="YES">
+        <attribute name="budget" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="descrip" optional="YES" attributeType="String"/>
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <relationship name="origin" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MonthItem" inverseName="budgetItem" inverseEntity="MonthItem"/>
+    </entity>
+    <entity name="MonthItem" representedClassName="MonthItem" syncable="YES">
+        <attribute name="budget" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="month" optional="YES" attributeType="String"/>
+        <attribute name="monthNum" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="budgetItem" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="BudgetItem" inverseName="origin" inverseEntity="BudgetItem"/>
+        <relationship name="origin" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="YearItem" inverseName="month" inverseEntity="YearItem"/>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="id"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
+    </entity>
+    <entity name="UnitItem" representedClassName=".UnitItem" syncable="YES">
+        <attribute name="budget" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <relationship name="year" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="YearItem" inverseName="origin" inverseEntity="YearItem"/>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="id"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
+    </entity>
+    <entity name="YearItem" representedClassName="YearItem" syncable="YES">
+        <attribute name="budget" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="year" optional="YES" attributeType="String"/>
+        <relationship name="month" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MonthItem" inverseName="origin" inverseEntity="MonthItem"/>
+        <relationship name="origin" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="UnitItem" inverseName="year" inverseEntity="UnitItem"/>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="id"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
+    </entity>
+    <elements>
+        <element name="UnitItem" positionX="-272.1831665039062" positionY="-304.4263458251953" width="128" height="103"/>
+        <element name="YearItem" positionX="-0.99090576171875" positionY="-322.6773986816406" width="128" height="118"/>
+        <element name="MonthItem" positionX="22.3326416015625" positionY="-24.12307739257812" width="128" height="133"/>
+        <element name="BudgetItem" positionX="329.0963134765625" positionY="-52.7841796875" width="128" height="118"/>
+    </elements>
+</model>
